@@ -1,0 +1,110 @@
+@import "tailwindcss";
+
+@theme {
+  /* ---- Color tokens: white / black / orange (per updated brief) ---- */
+  --color-paper: #ffffff;
+  --color-graphite: #161616;
+  --color-rebar: #0a0a0a;
+  --color-orange: #f9590f;
+  --color-orange-deep: #d6440a;
+  --color-block: #f5f5f5;
+  --color-block-dark: #e6e6e6;
+  --color-steel: #6b6b6b;
+  --color-steel-light: #9a9a9a;
+
+  /* ---- Type tokens ---- */
+  --font-display: "Archivo", "Inter", sans-serif;
+  --font-body: "Inter", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+  --breakpoint-xs: 420px;
+}
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: var(--font-body);
+    color: var(--color-graphite);
+    background-color: var(--color-paper);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection {
+    background-color: var(--color-orange);
+    color: var(--color-rebar);
+  }
+
+  :focus-visible {
+    outline: 3px solid var(--color-orange);
+    outline-offset: 3px;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    font-weight: 800;
+    letter-spacing: -0.01em;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer utilities {
+  /* Stud / aggregate dot-grid texture -- the recurring "interlocking block" motif */
+  .stud-grid {
+    background-image: radial-gradient(currentColor 1.5px, transparent 1.5px);
+    background-size: 22px 22px;
+  }
+
+  .stud-grid-lg {
+    background-image: radial-gradient(currentColor 2px, transparent 2px);
+    background-size: 34px 34px;
+  }
+
+  /* Halftone aggregate overlay used on every duotone photo */
+  .halftone {
+    background-image: radial-gradient(rgba(17, 21, 28, 0.55) 1px, transparent 1.2px);
+    background-size: 6px 6px;
+  }
+
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  /* Seam between stacked blocks -- used as a section divider instead of a plain hairline */
+  .block-seam {
+    position: relative;
+  }
+  .block-seam::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background-image: repeating-linear-gradient(
+      to right,
+      var(--color-block-dark) 0,
+      var(--color-block-dark) 38px,
+      transparent 38px,
+      transparent 46px
+    );
+  }
+
+  .mask-fade-b {
+    mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
+  }
+}
